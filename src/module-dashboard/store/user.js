@@ -52,40 +52,66 @@ const user = {
     LoginByUsername({ commit }, userInfo) {
       const username = userInfo.mobile.trim()
       return new Promise((resolve, reject) => {
-        login({
-            mobile: username,
-            password: userInfo.password
-          }).then(response => {
-            const data = response.data.data
+        // login({
+        //     mobile: username,
+        //     password: userInfo.password
+        //   }).then(response => {
+        //     const data = response.data.data
+        //     if(data != null){
+        //       commit('SET_TOKEN', data)
+        //       setToken(data)
+        //       resolve()
+        //     }else{
+        //       reject(error)
+        //     }
+            
+        // }).catch(error => {
+        //   reject(error)
+        // })
+        const data = "fkewojfwa7w8w55wikaoiwuw8e8wa"
             if(data != null){
               commit('SET_TOKEN', data)
               setToken(data)
               resolve()
-            }else{
-              reject(error)
             }
-            
-        }).catch(error => {
-          reject(error)
-        })
       })
     },
 
     // 获取用户信息
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        profile().then(response => {
-          const data = response.data.data
+          const data = {
+            "success": true,
+            "code": 10000,
+            "message": "操作成功！",
+            "data": {
+                "username": "段美林",
+                "avatar": "",
+                "company": "爱尔眼科集团",
+                "approvals": null,
+                "userId": "557541445",
+            "roles": {"apis":["1"],"menus":["2","6","7"],"points":["4","8"]}
+            }
+        }
           commit('SET_ROLES', data.roles?data.roles:{menus:[],points:[]})
           commit('SET_NAME', data.username)
           commit('SET_AVATAR', data.avatar)
           commit('SET_INTRODUCTION', data.company)
           commit('SET_APPROVALS', data.approvals)
           getters.userId = data.userId
-          resolve(response)
-        }).catch(error => {
-          reject(error)
-        })
+          resolve(data)
+        // profile().then(response => {
+        //   const data = response.data.data
+        //   commit('SET_ROLES', data.roles?data.roles:{menus:[],points:[]})
+        //   commit('SET_NAME', data.username)
+        //   commit('SET_AVATAR', data.avatar)
+        //   commit('SET_INTRODUCTION', data.company)
+        //   commit('SET_APPROVALS', data.approvals)
+        //   getters.userId = data.userId
+        //   resolve(response)
+        // }).catch(error => {
+        //   reject(error)
+        // })
       })
     },
     // 登出

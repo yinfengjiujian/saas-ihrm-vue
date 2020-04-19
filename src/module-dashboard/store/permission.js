@@ -7,12 +7,13 @@ import { hasPermission } from '@/utils/permission'
  * @param roles
  */
 function filterAsyncRouter(asyncRouterMap, roles) {
-  const accessedRouters = asyncRouterMap.filter(route => {
-    if (hasPermission(roles, route)) {
-      return true
-    }
-    return false
-  })
+  // const accessedRouters = asyncRouterMap.filter(route => {
+  //   if (hasPermission(roles, route)) {
+  //     return true
+  //   }
+  //   return false
+  // })
+  const accessedRouters = asyncRouterMap
   return accessedRouters
 }
 

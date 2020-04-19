@@ -12,7 +12,7 @@ module.exports = {
     proxyTable: {
       //企业信息请求的远程服务 //Updated 将直接对后台问服务请求,改为请求Zuul网关
       '/api': {
-        target: 'http://localhost:9091',
+        target: 'http://localhost:9001',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
