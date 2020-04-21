@@ -29,14 +29,14 @@
       </el-card>
       <el-card shadow="never" class="boxMar">
         <el-table :data="dataList" fit style="width: 100%;" border>
-          <el-table-column type="index" :index="1" label="序号" width="50"> </el-table-column>
-          <el-table-column sortable prop="username" label="姓名" width="120"></el-table-column>
-          <el-table-column sortable prop="mobile" label="手机号" width="150"></el-table-column>
-          <el-table-column sortable prop="workNumber" label="工号" width="120"></el-table-column>
-          <el-table-column sortable :formatter="judgeFormOfEmployment" label="聘用形势" width="120"></el-table-column>
-          <el-table-column sortable prop="departmentName" label="部门" width="120"></el-table-column>
-          <el-table-column sortable :formatter="formatterDate" prop="timeOfEntry" label="入职时间" width="150"></el-table-column>
-          <el-table-column fixed="right" label="操作" align="center" width="260">
+          <el-table-column type="index" :index="1" label="序号" align="center" > </el-table-column>
+          <el-table-column sortable prop="username" label="姓名" align="center"></el-table-column>
+          <el-table-column sortable prop="mobile" label="手机号" align="center"></el-table-column>
+          <el-table-column sortable prop="workNumber" label="工号" align="center"></el-table-column>
+          <el-table-column sortable :formatter="judgeFormOfEmployment" prop="formOfEmployment" label="聘用形势" align="center"></el-table-column>
+          <el-table-column sortable prop="departmentName" label="部门" align="center"></el-table-column>
+          <el-table-column sortable :formatter="formatterDate" prop="timeOfEntry" align="center" label="入职时间"></el-table-column>
+          <el-table-column label="操作" align="center" width="260">
             <template slot-scope="scope">
               <router-link :to="{'path':'/employees/details/' + scope.row.id}" class="el-button el-button--text el-button--small">
                 查看
@@ -45,7 +45,7 @@
               <router-link :to="{'path':'/employees/leave/' + scope.row.id}" class="el-button el-button--text el-button--small">
                 离职
               </router-link>   
-              <el-button @click="handleRole(scope.row)" type="text" size="small">角色</el-button>
+              <el-button @click="handleRole(scope.row)" type="text" size="small">分配角色</el-button>
               <!--
               <el-button v-if="show('point-user-delete')" @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
               -->
@@ -99,10 +99,10 @@ export default {
       baseData: constantApi,
       dataList: [],
       counts: '',
-      requestParameters:{
+      requestParameters: {
         page: 1,
-        size: 10,
-      }    
+        size: 10
+      }
     }
   },
   methods: {

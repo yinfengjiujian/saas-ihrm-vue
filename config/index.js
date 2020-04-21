@@ -11,11 +11,39 @@ module.exports = {
     assetsPublicPath: '',
     proxyTable: {
       //企业信息请求的远程服务 //Updated 将直接对后台问服务请求,改为请求Zuul网关
-      '/api': {
-        target: 'http://localhost:9001',
+      /**'/api': {
+        target: 'http://localhost:9091',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
+        }
+      }  **/
+      /***
+       * 
+       * 这里前端VUE提供了代理，比如开发环境下的dev.env.js文件里的 BASE_API 为前缀：  /api
+       * 加上后端服务的controller层请求地址为：@RequestMapping(value = "/company")  那么拼起来的地址为
+       *  /api/company
+       * 
+       * 代理做什么事呢，当发现请求地址为 /api/company 的时候，就会拦截到请求，进入如下的配置中来，
+       * 将请求的 ^/api/company  (-->   ^ 代表前面所有的地址)   进行拦截地址替换
+       *   ^/api/company     替换成 target值，即为: http://localhost:9001/company/
+       *    
+       * 
+       */
+      // 企业微服务
+      '/api/company': {
+        target: 'http://localhost:9001/company/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/company': ''
+        }
+      },
+      // 系统微服务
+      '/api/sys': {
+        target: 'http://localhost:9002/sys/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/sys': ''
         }
       }
     },
