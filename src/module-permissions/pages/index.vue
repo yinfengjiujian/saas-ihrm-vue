@@ -4,15 +4,15 @@
       <el-card shadow="never">
         <el-button class="filter-item fr" size="small" style="margin-left: 10px;" @click="handleCreate(null,1);setPid(1,'0')" type="primary" icon="el-icon-edit">添加菜单</el-button>
             <el-table :data="dataList" fit style="width: 100%;" highlight-current-row>
-                <el-table-column fixed prop="name" label="菜单名称" width="200px">
+                <el-table-column fixed prop="name" label="菜单名称">
                     <template slot-scope="scope">
                         <i :class="scope.row.type==1?'ivu-icon fa fa-folder-open-o fa-fw':'ivu-icon  el-icon-view'" 
                             :style="scope.row.type==1?'margin-left: 0px':'margin-left: 20px'"></i>
                         <span @click="show(scope.$index,scope.row.id)">{{scope.row.name}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column fixed prop="code" label="权限标识" width="200"></el-table-column>
-                <el-table-column fixed prop="description" label="描述" width="200"></el-table-column>        
+                <el-table-column fixed prop="code" label="权限标识"></el-table-column>
+                <el-table-column fixed prop="description" label="描述"></el-table-column>
                 <el-table-column fixed="right" label="操作">
                     <template slot-scope="scope">
                         <el-button v-if="scope.row.type==1" @click="handleCreate(null,2);setPid(2,scope.row.id)" type="text" size="small">添加权限点</el-button>
@@ -151,8 +151,10 @@ export default {
       })
     },
     handleDelete(id) {
-      remove({id}).then(res=> {
-        this.$message({message:res.data.message,type:res.data.success?"success":"error"});
+      this.$confirm('您确认删除该权限吗？').then(() => {
+        remove({id}).then(res=> {
+          this.$message({message:res.data.message,type:res.data.success?"success":"error"});
+        })
       })
     },
     getList() {

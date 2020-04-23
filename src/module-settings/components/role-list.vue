@@ -40,9 +40,11 @@
       </div>
     </el-dialog>
     <el-dialog :title="'为【'+formData.name+'】分配权限'" :visible.sync="permFormVisible" style="hight:100px;line-height:1px">
+      <!-- 必须加上 check-strictly="true"  在显示复选框的情况下，是否严格的遵循父子不互相关联的做法 -->
       <el-tree
         :data="treeData"
-        default-expand-all	
+        default-expand-all
+        check-strictly="true"
         show-checkbox
         node-key="id"
         ref="tree"
@@ -91,10 +93,11 @@ export default {
     },
     handlerPerm(obj) {
        detail({id:obj.id}).then(res=>{
+         // 为什么给 formData赋值，是为了，在修改角色分配权限后，点击确定按钮的时候拿到对应的数据提交后台
          this.formData = res.data.data;
          this.checkNodes = res.data.data.permIds
           permApi.list({type:0,pid:null,enVisible:1}).then(res => {
-            this.treeData = commonApi.transformTozTreeFormat(res.data.data)
+            this.treeData = commonApi.transPidformTozTreeFormat(res.data.data)
             this.permFormVisible=true
           })
        })
