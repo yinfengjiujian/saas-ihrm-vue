@@ -80,7 +80,7 @@ export default {
         qrcode: ''
       },
       loginForm: {
-        username: '13800000002',
+        username: '13800000001',
         password: '123456'
       },
       loginRules: {
